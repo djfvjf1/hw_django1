@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        {% block content %}
+        {% csrf_token %}
+      <button><a class="btn" href="{% url 'profile' %}">Профиль</a></button>
+
+      <h2>Список проблем</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Телефон</th>
+            <th>Емэйл</th>
+            <th>Описание</th>
+            <th>Приоритет</th>
+            <th>Решено</th>
+            <th>Дата создания</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for problem in problems %}
+            <tr>
+              <td>{{ problem.name }}</td>
+              <td>{{ problem.phone }}</td>
+              <td>{{ problem.email }}</td>
+              <td>{{ problem.description }}</td>
+              <td>{{ problem.get_priority_display }}</td>
+              <td>{{ problem.get_resolved_display }}</td>
+              <td>{{ problem.created_at }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <button><a class="btn" href="{% url 'create_problem' %}">Создать проблему</a></button>
+
+    {% endblock %}
+</body>
+</html>
